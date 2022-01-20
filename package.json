@@ -1,0 +1,19 @@
+{
+  "name": "api-ionix-express",
+  "version": "1.0.0",
+  "description": "API test for ionix",
+  "main": "index.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenshimota/api-ionix-express.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenshimota/api-ionix-express/issues"
+  },
+  "homepage": "https://github.com/kenshimota/api-ionix-express#readme"
+}
