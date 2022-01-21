@@ -26,7 +26,7 @@ class Users {
    * @return {SequelizeModel}
    */
   async getUsername(username) {
-    const resource = await this.model.findByPk(id);
+    const resource = await this.model.findOne({ where: { username } });
     if (!resource) throw new Error("sorry, the users not exists");
     this.resource = resource.dataValues;
     return resource;
