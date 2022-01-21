@@ -1,11 +1,11 @@
-const model = require("../models/users");
+const db = require("../models/index");
 const Emails = require("../utils/emails");
 const HashPassword = require("../utils/hash-password");
 
 class Users {
   /* ---- Construct ---- */
   constructor() {
-    this.model = model;
+    this.model = db.users;
   }
 
   /**
@@ -16,7 +16,19 @@ class Users {
   async getId(id) {
     const resource = await this.model.findByPk(id);
     if (!resource) throw new Error("sorry, the users not exists");
-    this.resource = this.resource.dataValues;
+    this.resource = resource.dataValues;
+    return resource;
+  }
+
+  /**
+   * Function that get an users for username
+   * @param {Number} id
+   * @return {SequelizeModel}
+   */
+  async getUsername(username) {
+    const resource = await this.model.findByPk(id);
+    if (!resource) throw new Error("sorry, the users not exists");
+    this.resource = resource.dataValues;
     return resource;
   }
 
@@ -32,9 +44,9 @@ class Users {
       );
 
     const response = await this.model.findOne({ where: { username: str } });
-    if (!response)
+    if (response)
       throw new Error(
-        "sorry, the username  " + str + " exists, please intro other username"
+        "sorry, the username " + str + " exists, please intro other username"
       );
 
     return true;
@@ -75,7 +87,7 @@ class Users {
     const emails = new Emails();
     emails.setEmail(email);
 
-    this.validUsername(username);
+    await this.validUsername(username);
     this.validName(firstname);
     this.validName(lastname);
 
