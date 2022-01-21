@@ -40,6 +40,11 @@ class Users {
     return true;
   }
 
+  /**
+   * Function that valid firstname and lastname
+   * @param {String} str
+   * @return {Boolean}
+   */
   validName(str) {
     if (!str || str.length <= 1)
       throw new Error(
@@ -60,7 +65,6 @@ class Users {
    * @param {String} email
    * @param {String} firstname
    * @param {String} lastname
-   * @param {String} email
    * @param {String} password
    * @return {SequelizeModel}
    */
@@ -86,6 +90,33 @@ class Users {
     };
 
     const response = await this.model.create(attributes);
+    return response;
+  }
+
+  /**
+   * Function that update an user
+   * @param {Number} id
+   * @param {String} email
+   * @param {String} firstname
+   * @param {String} lastname
+   * @return {SequelizeModel}
+   */
+  async update({ id, email, firstname, lastname }) {
+    const emails = new Emails();
+    emails.setEmail(email);
+
+    this.validName(firstname);
+    this.validName(lastname);
+
+    const attributes = {
+      firstname,
+      lastname,
+      email: emails.getEmail(),
+      updatedAt: new Date(),
+    };
+
+    await this.model.update(attributes, { where: { id } });
+    const response = await this.findId(id);
     return response;
   }
 
