@@ -11,6 +11,14 @@ class Emails {
   }
 
   /**
+   * Function that return an string with the email
+   * @return {String}
+   */
+  getEmail() {
+    return this.email;
+  }
+
+  /**
    * Function that check if string is valid
    * @param {String} str
    * @return {Boolean}
