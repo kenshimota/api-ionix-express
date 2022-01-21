@@ -1,6 +1,7 @@
-const { Router, response } = require("express");
-const Users = require("../../services/users");
+const { Router } = require("express");
 const router = Router();
+const Users = require("../../services/users");
+const AuthHeaders = require("../../middlewares/auth-headers");
 
 router.get("/", async function (req, res) {
   try {
@@ -20,7 +21,7 @@ router.get("/", async function (req, res) {
  * @param {String} password
  * @return {SequelizeModel}
  */
-router.post("/", async function (req, res) {
+router.post("/", AuthHeaders, async function (req, res) {
   try {
     const params = req.body;
     const users = new Users();
@@ -59,7 +60,7 @@ router.get("/:id", async function (req, res) {
  * @param {String} lastname
  * @return {SequelizeModel}
  */
-router.update("/:id", async function (req, res) {
+router.put("/:id", AuthHeaders, async function (req, res) {
   try {
     const params = { ...req.body, ...req.params };
     const users = new Users();
@@ -77,7 +78,7 @@ router.update("/:id", async function (req, res) {
  * @param {Number} id
  * @return {SequelizeModel}
  */
-router.delete("/:id", async function (req, res) {
+router.delete("/:id", AuthHeaders, async function (req, res) {
   try {
     const { id } = req.params;
     const users = Users;
