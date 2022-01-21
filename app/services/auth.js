@@ -25,6 +25,7 @@ class Auth {
       if (user.password != hash.getToken())
         throw new Error("invalid credentials");
 
+      delete user["password"];
       const token = jwt.sign(user, secretKey, {
         expiresIn: "2h",
       });
