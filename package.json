@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kenshimota/api-ionix-express#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.2",
     "js-sha256": "^0.9.0",
     "jsonwebtoken": "^8.5.1",
