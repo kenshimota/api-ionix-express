@@ -114,6 +114,8 @@ class Users {
    * @return {SequelizeModel}
    */
   async update({ id, email, firstname, lastname }) {
+    const response = await this.getId(id);
+
     const emails = new Emails();
     emails.setEmail(email);
 
@@ -127,8 +129,12 @@ class Users {
       updatedAt: new Date(),
     };
 
+    response.dataValues.firstname = firstname;
+    response.dataValues.lastname = lastname;
+    response.dataValues.email = emails.getEmail();
+    response.dataValues.updatedAt = attributes.updatedAt;
     await this.model.update(attributes, { where: { id } });
-    const response = await this.findId(id);
+
     return response;
   }
 
