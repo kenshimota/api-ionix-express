@@ -1,3 +1,6 @@
+const sequelize = require("sequelize");
+const { Op } = sequelize;
+
 const db = require("../models/index");
 const Emails = require("../utils/emails");
 const HashPassword = require("../utils/hash-password");
@@ -6,6 +9,43 @@ class Users {
   /* ---- Construct ---- */
   constructor() {
     this.model = db.users;
+  }
+
+  /**
+   * List function that list users
+   * @param {Number} offset start the list
+   * @param {Number} limit quantity max the elements
+   * @return {Array} return arrays elements searched
+   **/
+  async List({ search, offset, limit }) {
+    const fieldsSearch = new Set([
+      "firstname",
+      "lastname",
+      "email",
+      "username",
+    ]);
+
+    const where = {};
+    for (const index in search) {
+      if (fieldsSearch.has(index))
+        where[index] = { [Op.substring]: search[index] };
+    }
+
+    const elements = await this.model.findAll({
+      where,
+      offset,
+      limit,
+      attributes: [
+        "username",
+        "email",
+        "firstname",
+        "lastname",
+        "createdAt",
+        "updatedAt",
+      ],
+    });
+
+    return elements.map((element) => element.dataValues);
   }
 
   /**
