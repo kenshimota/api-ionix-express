@@ -2,7 +2,7 @@ const Emails = require("../app/utils/emails");
 
 test("email void", () => {
   const emails = new Emails();
-  expect(() => emails.setEmail("")).toThrow(Error);
+  expect(() => emails.setEmail(null)).toThrow(Error);
 });
 
 test("email wrong string", () => {

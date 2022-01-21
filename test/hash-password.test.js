@@ -2,7 +2,7 @@ const HashPassword = require("../app/utils/hash-password");
 
 test("password void", () => {
   const hash = new HashPassword();
-  expect(() => hash.setPassword("")).toThrow(Error);
+  expect(() => hash.setPassword(null)).toThrow(Error);
 });
 
 test("password with just lower letter", () => {

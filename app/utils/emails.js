@@ -18,7 +18,7 @@ class Emails {
   validate(str) {
     const validRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (str.length == 0) throw new Error("the email can't is void");
+    if (!str || str.length == 0) throw new Error("the email can't is void");
 
     const validResponse = str.match(validRegex);
     if (!validResponse) throw new Error("the email not is valid");

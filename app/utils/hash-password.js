@@ -18,7 +18,7 @@ class HashPassword {
    * @return {Boolean}
    */
   validatePassword(str) {
-    if (str.length < 7)
+    if (!str || str.length < 7)
       throw new Error("the password must have minimun 7 characters");
     if (!str.match(/[a-z]/g))
       throw new Error("the password must have a lowercase letter");
