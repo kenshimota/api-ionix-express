@@ -7,12 +7,12 @@ const router = Router();
  * Function that return token valid
  * @param {String} username
  * @param {String} password
- * @param {Object}
+ * @param {Object} propio
  */
-router.post("auth/login", async function (req, res) {
+router.post("/login", async function (req, res) {
   try {
     const auth = new Auth();
-    const { username, password } = req;
+    const { username, password } = req.body;
     const token = await auth.signin({ username, password });
 
     res.json({ token });
