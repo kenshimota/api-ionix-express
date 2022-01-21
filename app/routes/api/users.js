@@ -25,8 +25,9 @@ router.post("/", AuthHeaders, async function (req, res) {
   try {
     const params = req.body;
     const users = new Users();
-    const response = await users.update(params);
-    return response;
+    const response = await users.create(params);
+    res.status(201);
+    res.json(response);
   } catch (error) {
     res.status(422);
     res.json({ message: error.message });
@@ -42,8 +43,8 @@ router.post("/", AuthHeaders, async function (req, res) {
 router.get("/:id", async function (req, res) {
   try {
     const { id } = req.params;
-    const users = Users;
-    const response = await users.findId(id);
+    const users = new Users();
+    const response = await users.getId(id);
     res.json(response);
   } catch (error) {
     res.status(422);
@@ -65,7 +66,9 @@ router.put("/:id", AuthHeaders, async function (req, res) {
     const params = { ...req.body, ...req.params };
     const users = new Users();
     const response = await users.update(params);
-    return response;
+
+    res.status(202);
+    res.json(response);
   } catch (error) {
     res.status(422);
     res.json({ message: error.message });
@@ -81,7 +84,10 @@ router.put("/:id", AuthHeaders, async function (req, res) {
 router.delete("/:id", AuthHeaders, async function (req, res) {
   try {
     const { id } = req.params;
-    const users = Users;
+    if (id == req.currentUser.id)
+      throw new Error("sorry, you don't delete yourself");
+
+    const users = new Users();
     const response = await users.delete(id);
     res.status(204);
     res.json(response);
