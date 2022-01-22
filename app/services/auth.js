@@ -41,10 +41,18 @@ class Auth {
    * @param {String} token
    * @return {Object}
    */
-  checkToken(token) {
+  async checkToken(token) {
     try {
       const payload = jwt.verify(token, secretKey);
       if (!payload) throw new Error("sorry, invalid credentials");
+
+      const users = new Users();
+      const user = await users
+        .getId(payload.id)
+        .then((user) => user.dataValues);
+
+      if (!user) throw new Error("sorry, the user not exists");
+
       return payload;
     } catch (error) {
       throw new Error(error);
