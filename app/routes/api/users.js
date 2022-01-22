@@ -5,6 +5,13 @@ const AuthHeaders = require("../../middlewares/auth-headers");
 
 router.get("/", async function (req, res) {
   try {
+    const { search, page, pageSize = 20, date_max, date_min } = req.query;
+    const limit = pageSize > 0 && pageSize < 500 ? pageSize * 1 : 20;
+    const offset = page > 1 ? (page - 1) * limit : 0;
+    const users = new Users();
+
+    const list = await users.List({ search, offset, limit });
+    res.json(list);
   } catch (error) {
     res.status(422);
     res.json({ message: error.message });
