@@ -7,14 +7,14 @@ const Auth = require("../services/auth");
  * @param {NextExpress} next
  * @return {Void}
  */
-const AuthHeaders = function (req, res, next) {
+const AuthHeaders = async function (req, res, next) {
   try {
     if (!req.headers["authorization"])
       throw new Error("sorry, invalid credentials");
 
     const token = req.headers["authorization"];
     const auth = new Auth();
-    const user = auth.checkToken(token);
+    const user = await auth.checkToken(token);
     req.currentUser = user;
 
     return next();
