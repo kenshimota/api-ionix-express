@@ -36,6 +36,7 @@ class Users {
       offset,
       limit,
       attributes: [
+        "id",
         "username",
         "email",
         "firstname",
