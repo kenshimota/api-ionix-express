@@ -14,9 +14,9 @@ it("into password invalid", async () => {
 test("into password valid", (done) => {
   const auth = new Auth();
 
-  function callback(token) {
+  async function callback(token) {
     try {
-      const user = auth.checkToken(token);
+      const user = await auth.checkToken(token);
       expect(user.username).toBe(userTest.username);
       done();
     } catch (error) {
