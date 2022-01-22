@@ -79,7 +79,7 @@ class Users {
    * @return {Boolean}
    */
   async validUsername(str = "") {
-    if (str.length < 6 && str.length > 255)
+    if (str.length < 6 || str.length > 255)
       throw new Error(
         "sorry, the username must have more 6 and maximun 255 charaters"
       );
