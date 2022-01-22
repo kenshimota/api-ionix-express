@@ -52,7 +52,6 @@ describe("", () => {
 
   test("get users with id that exists", async () => {
     const response = await request(server).get("/api/users/" + userId);
-    console.log(response.body);
 
     expect(response.statusCode).toBe(200);
     expect(!response.body.id == false).toBe(true);
