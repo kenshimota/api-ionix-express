@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const secretKey = "89127387123n123yoj1io2j0912371297398091283n12k37812y";
-
 const HashPassword = require("../utils/hash-password");
 const Users = require("./users");
+
+const secretKey = process.env.AUTH_SECRET;
 
 class Auth {
   /**

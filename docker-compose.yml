@@ -10,6 +10,7 @@ services:
     volumes:
       - "./:/app"
     environment:
+      AUTH_SECRET: 89127387123n123yoj1io2j0912371297398091283n12k37812y
       DEV_DB_USERNAME: kenshimota
       DEV_DB_PASSWORD: manager
       DEV_DB_NAME: api-ionix
