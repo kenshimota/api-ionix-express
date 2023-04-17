@@ -1,0 +1,23 @@
+name: Ionix ExpressAPI demo
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: install node        
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: install dependencies
+        run: |
+          npm install
+      - name: Testing
+        run: npm test
